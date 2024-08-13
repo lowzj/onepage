@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script>
+      function displayDomainInTitle() {
+          var domain = window.location.hostname;
+          document.title = domain;
+          document.getElementById('title').textContent = domain;
+      }
+      </script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1a1a2e;
+        }
+
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #e0e0e0;
+            white-space: nowrap;
+        }
+        #title {
+            font-size: 8vw;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        #subtitle {
+          color: gray;
+          font-size: 2vw;
+          animation: heartbeat 2s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255,100,100,0.8), 0 0 30px rgba(255,50,50,0.6);
+            }
+        }
+    </style>
+</head>
+<body onload="displayDomainInTitle();">
+  <div id="text">
+    <div id="title"></div>
+    <div id="subtitle"></div>
+  </div>
+</body>
+</html>
