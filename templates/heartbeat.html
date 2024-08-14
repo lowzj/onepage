@@ -6,9 +6,12 @@
     <title></title>
     <script>
       function displayDomainInTitle() {
-          var domain = window.location.hostname;
-          document.title = domain;
-          document.getElementById('title').textContent = domain;
+          const params = new URLSearchParams(window.location.search);
+          const title = params.get('t') || '.0.';
+          const subtitle = params.get('s') || window.location.hostname;
+
+          document.getElementById('title').textContent = title;
+          document.getElementById('subtitle').textContent = subtitle;
       }
       </script>
     <style>
@@ -36,8 +39,8 @@
             animation: heartbeat 2s ease-in-out infinite;
         }
         #subtitle {
-          color: gray;
-          font-size: 2vw;
+          /* color: grey; */
+          font-size: 3vw;
           animation: heartbeat 2s ease-in-out infinite;
         }
         @keyframes heartbeat {
@@ -48,10 +51,34 @@
                 text-shadow: 0 0 20px rgba(255,100,100,0.8), 0 0 30px rgba(255,50,50,0.6);
             }
         }
+        .loader {
+          display: inline-flex;
+          gap: 10px;
+        }
+        .loader:before,
+        .loader:after {
+          content: "";
+          height: 50px;
+          aspect-ratio: 1;
+          border-radius: 50%;
+          background:
+            radial-gradient(farthest-side,#000 95%,#0000) 50%/8px 8px no-repeat
+            #fff;
+          aspect-ratio: 1;
+          animation: l10 1s infinite alternate;
+        }
+        .loader:after {
+          --s:-1;
+        }
+        @keyframes l10 {
+          0% ,20% {transform:scaleX(var(--s,1)) rotate(0deg) ;clip-path:inset(0);}
+          60%,100%{transform:scaleX(var(--s,1)) rotate(30deg);clip-path:inset(40% 0 0);}
+        }
     </style>
 </head>
 <body onload="displayDomainInTitle();">
   <div id="text">
+    <div class="loader"></div>
     <div id="title"></div>
     <div id="subtitle"></div>
   </div>
